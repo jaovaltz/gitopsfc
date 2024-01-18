@@ -35,9 +35,9 @@ jobs:
           file: ./Dockerfile
 
       - name: Setup Kustomize
-        uses: imranismail/setup-kustomize@v1.0.0
-        with:
-          kustomize-version: "3.8.7"
+        uses: imranismail/setup-kustomize@v1
+        with: 
+          kustomize-version: "3.6.1"
 
       - name: Update Kubernetes resources
         env:
