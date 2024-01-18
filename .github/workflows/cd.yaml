@@ -33,3 +33,28 @@ jobs:
             VERSION=1.0.0
           context: .
           file: ./Dockerfile
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1.0.0
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Update Kubernetes resources
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          cd k8s
+          kustomize edit set image goserver=${{ secrets.DOCKER_USERNAME }}/cd-gitops:${{ github.sha }}
+
+      - name: Commit
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git commit -am "Bump new version"
+
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: jaovaltz/gitopsfc
+          branch: main
