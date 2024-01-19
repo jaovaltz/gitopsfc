@@ -8,4 +8,4 @@ resources:
 images:
 - name: goserver
   newName: jvaltz/cd-gitops
-  newTag: 40554ff05f6747160e87fabded3a09bb6620c427
+  newTag: 709dc9c06a4ad360baf0dfa7fbbbf12d9a14599d
